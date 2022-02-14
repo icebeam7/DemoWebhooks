@@ -43,31 +43,30 @@ app.MapPost("/api/issues",
 
                 if (gitHubInfo != null)
                 {
-                    var gitHubData = $"Action: {gitHubInfo.action} " +
-                    $"Issue URL: {gitHubInfo.issue.url} " +
-                    $"Issued by: {gitHubInfo.issue.user.login} " +
-                    $"Issue Title: {gitHubInfo.issue.title} " +
-                    $"Issue Content: {gitHubInfo.issue.body} " +
-                    $"Issue State: {gitHubInfo.issue.state} " +
-                    $"Issue Creation Date: {gitHubInfo.issue.created_at} " +
-                    $"Repository: {gitHubInfo.repository.full_name} " +
-                    $"Sender: {gitHubInfo.sender.login} ";
+                    if (gitHubInfo.issue != null)
+                    {
+                        var gitHubData = $"Action: {gitHubInfo.action} " +
+                        $"Issue URL: {gitHubInfo.issue.url} " +
+                        $"Issued by: {gitHubInfo.issue.user.login} " +
+                        $"Issue Title: {gitHubInfo.issue.title} " +
+                        $"Issue Content: {gitHubInfo.issue.body} " +
+                        $"Issue State: {gitHubInfo.issue.state} " +
+                        $"Issue Creation Date: {gitHubInfo.issue.created_at} " +
+                        $"Repository: {gitHubInfo.repository.full_name} " +
+                        $"Sender: {gitHubInfo.sender.login} ";
 
-                    return Results.Ok($"{gitHubData}");
+                        return Results.Ok($"{gitHubData}");
+                    }
+                    else
+                        return Results.Ok("works with configured secret!");
                 }
             }
         }
 
         return Results.Unauthorized();
     })
-//.Accepts<Book>("application/json")
-//.Produces<Book>(StatusCodes.Status201Created)
 .WithName("Issues")
 .WithTags("GitHub");
 
 app.Run();
 
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

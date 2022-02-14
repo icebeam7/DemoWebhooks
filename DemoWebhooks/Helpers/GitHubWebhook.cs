@@ -3,7 +3,9 @@
     public class GitHubWebhook
     {
         const string sha256Prefix = "sha256=";
-        public static bool IsGitHubSignatureValid(string payload, string signatureWithPrefix, string _gitHubWebhookSecret)
+        public static bool IsGitHubSignatureValid(string payload, 
+            string signatureWithPrefix, 
+            string _gitHubWebhookSecret)
         {
             if (string.IsNullOrWhiteSpace(payload))
                 throw new ArgumentNullException(nameof(payload));
